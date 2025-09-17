@@ -12,18 +12,22 @@ function convertToObject(sourceString) {
 
   const properties = sourceString
     .split(';')
-    .map((el) => el.trim())
-    .filter((el) => el !== '');
+    .map((declaration) => declaration.trim())
+    .filter((declaration) => declaration !== '');
 
-  return properties.reduce((acc, property) => {
+  return properties.reduce((stylesObject, property) => {
     const colonIndex = property.indexOf(':');
+
+    if (colonIndex === -1) {
+      return stylesObject;
+    }
 
     const key = property.slice(0, colonIndex).trim();
     const value = property.slice(colonIndex + 1).trim();
 
-    acc[key] = value;
+    stylesObject[key] = value;
 
-    return acc;
+    return stylesObject;
   }, {});
 }
 
