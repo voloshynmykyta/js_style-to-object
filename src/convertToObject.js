@@ -25,6 +25,10 @@ function convertToObject(sourceString) {
     const key = property.slice(0, colonIndex).trim();
     const value = property.slice(colonIndex + 1).trim();
 
+    if (!key) {
+      return stylesObject;
+    }
+
     stylesObject[key] = value;
 
     return stylesObject;
